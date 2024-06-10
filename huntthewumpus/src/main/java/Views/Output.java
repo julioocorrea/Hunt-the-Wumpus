@@ -5,37 +5,50 @@ import java.util.ArrayList;
 
 public class Output {
 
-    private static final String MENU_TITLE = "🧝🏻⚔️ BEM-VINDO AO HUNT THE WUMPUS ⚔️👹";
-    private static final String MENU_START_GAME = "1 - Iniciar o jogo";
-    private static final String MENU_EXIT = "2 - Sair";
+    private static final String MENU_TITLE = "          🧝🏻🏹 BEM-VINDO AO HUNT THE WUMPUS 🏹👹";
+    private static final String MENU_START_GAME = "                  𝟙 ➵ Iniciar o jogo";
+    private static final String MENU_EXIT = "                  𝟚 ➵ Sair";
+    private static final String MENU_SHOOT_ARROW = "🧝🏻🏹👹 Ok, vamos lá. Escolha a caverna em que deseja atirar a flecha: 🧝🏻🏹👹";
+    private static final String MENU_SHOOT_WEST = "𝟙 ➵ Leste 🎯";
+    private static final String MENU_SHOOT_EAST = "𝟚 ➵ Sul 🎯";
+    private static final String MENU_SHOOT_SOUTH = "𝟛 ➵ Oeste 🎯";
     private static final String ASKPLAYERNAME = "Qual seu nome?";
-    private static final String INVALID_OPTION = "Opção inválida. Tente novamente.";
+    private static final String INVALID_OPTION = "❌ Opção inválida. Tente novamente. ❌";
     private static final String ONLY_NUMBERS_ALLOWED = "Somente números são permitidos!";
     private static final String YOU_AWAKE_IN_CAVERN = "🕸️🦇 Você acorda em uma caverna escura e úmida...";
-    private static final String PATH_TRAVERSED = "Caminho percorrido: ";
+    private static final String PATH_TRAVERSED = "🗺️ Caminho percorrido: ";
     private static final String LIFE_STATUS = "❤️ Vida: ";
     private static final String ARROW_STATUS = "🏹 Flechas: ";
     private static final String BACK_OPTION = "5 - Voltar";
     private static final String NO_ARROWS_MESSAGE = "➴ Você está sem flechas! ➴";
-    private static final String VICTORY_MESSAGE = "Você derrotou o terrível monstro Wumpus! 🧝🏻⚔️";
-    private static final String DEFEAT_MESSAGE = "Que pena! Você morreu...";
-    private static final String MISS_MESSAGE = "Errou o alvo!";
-    private static final String BREEZE_NEARBY = "Você sente uma brisa suave...";
+    private static final String VICTORY_MESSAGE = "🧝🏻🏹 Você derrotou o terrível monstro Wumpus! 🧝🏻🏹";
+    private static final String DEFEAT_MESSAGE = "💀 Que pena! Você morreu... 💀";
+    private static final String MISS_MESSAGE = "🎯❌ Errou o alvo! 🎯❌";
+    private static final String BREEZE_NEARBY = "🍃 Você sente uma brisa suave... 🍃";
     private static final String FALLEN_IN_PIT = "🕳️ Você caiu em um poço e se machucou (-50 de vida) 🕳️";
     private static final String BAT_FLAPPING_NEARBY = "🦇 Ouviu um bater de asas...";
     private static final String CARRIED_BY_BAT = "🦇 Um morcego te encontrou e te levou para outra caverna! 🦇";
-    private static final String WUMPUS_ODOR_NEARBY = "Você sente um cheiro horrível...";
-    private static final String WUMPUS_ATTACK = "👹 Você entrou na caverna do Wumpus e ele te atacou! 👹";
+    private static final String WUMPUS_ODOR_NEARBY = "☢ Você sente um cheiro horrível... ☢";
+    private static final String WUMPUS_ATTACK = "👹⚔️ Você entrou na caverna do Wumpus e ele te atacou! ⚔️👹";
     private static final String PICKED_UP_ARROW = "➴ Você pegou uma flecha ➴";
-    private static final String OUT_OF_ARROWS = "Todas as flechas acabaram. Você não pode mais matar o monstro!";
+    private static final String OUT_OF_ARROWS = "➴❌ Todas as flechas acabaram. Você não pode mais matar o monstro! ➴❌";
     private static final String GAME_OVER = "Obrigado por jogar! Volte novamente a qualquer momento";
-    private static final String DIVIDER = "☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵☵";
+    private static final String DIVIDER = "🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧝🏻🏹👹🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱";
 
     public void printMainMenuOptions() {
     	System.out.println(DIVIDER);
         System.out.println(MENU_TITLE);
         System.out.println(MENU_START_GAME);
         System.out.println(MENU_EXIT);
+    	System.out.println(DIVIDER);
+    }
+    
+    public void printMenuShootArrow() {
+    	System.out.println(DIVIDER);
+        System.out.println(MENU_SHOOT_ARROW);
+        System.out.println(MENU_SHOOT_WEST);
+        System.out.println(MENU_SHOOT_EAST);
+        System.out.println(MENU_SHOOT_SOUTH);
     	System.out.println(DIVIDER);
     }
 

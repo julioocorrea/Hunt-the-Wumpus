@@ -23,6 +23,9 @@ public class Jogo {
 
 	// Índice da caverna onde o jogador está atualmente.
 	int cavernaAtual = 0;
+	
+	// Total de flechas do jogo.
+	int TotalDeFlechas = 3;
 
 	// Instância do inimigo Morcego (Bat) no jogo.
 	Morcego morcego = new Morcego("Bat");
@@ -30,8 +33,11 @@ public class Jogo {
 	// Instância do inimigo Wumpus no jogo.
 	Wumpus wumpus = new Wumpus("Wumpus");
 
-	// Instância do inimigo Poço (Pit) no jogo.
-	Poco poco = new Poco("Pit");
+	// Instância do inimigo Poço1 (Pit1) no jogo.
+	Poco poco1 = new Poco("Pit");
+	
+	// Instância do inimigo Poço2 (Pit2) no jogo.
+	Poco poco2 = new Poco("Pit");
 
 	// Instância do mapa que mapeia as conexões entre as cavernas.
 	Mapa mapa = new Mapa();
@@ -55,6 +61,7 @@ public class Jogo {
 	 * - Inicia a aventura do jogador.
 	 */
 	public void iniciarJogo() {
+		this.fimDeJogo = false;
 	    Output output = new Output(); // Instância da classe de saída para exibir mensagens
 	    output.AskPlayerName(); // Solicita o nome do jogador
 	    Input input = new Input(); // Instância da classe de entrada para receber dados do jogador
@@ -74,20 +81,27 @@ public class Jogo {
 	    Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
 
 	    // Posiciona aleatoriamente o morcego em uma caverna
-	    int cavernaMorcego = r.nextInt(25);
+	    int cavernaMorcego = 10;
 	    cavernas[cavernaMorcego].inimigo = morcego;
 
 	    // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
-	    int cavernaPoco = 0;
-	    while (cavernaPoco != cavernaMorcego) {
-	        cavernaPoco = r.nextInt(25);
+	    int cavernaPoco1 = 0;
+	    while (cavernaPoco1 != cavernaMorcego) {
+	        cavernaPoco1 = r.nextInt(13);
 	    }
-	    cavernas[cavernaPoco].inimigo = poco;
+	    cavernas[cavernaPoco1].inimigo = poco1;
+	    
+	    // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
+	    int cavernaPoco2 = 0;
+	    while (cavernaPoco2 != cavernaMorcego && cavernaPoco1 != cavernaPoco2) {
+	        cavernaPoco2 = r.nextInt(13);
+	    }
+	    cavernas[cavernaPoco2].inimigo = poco2;
 
 	    // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e do poço
 	    int cavernaWumpus = 0;
-	    while (cavernaWumpus != cavernaMorcego && cavernaWumpus != cavernaPoco) {
-	        cavernaWumpus = r.nextInt(25);
+	    while (cavernaWumpus != cavernaMorcego && cavernaWumpus != cavernaPoco1 && cavernaWumpus != cavernaPoco2) {
+	        cavernaWumpus = r.nextInt(21) + 5;
 	    }
 	    cavernas[cavernaWumpus].inimigo = wumpus;
 
@@ -235,6 +249,7 @@ public class Jogo {
   	    if (cavernas[cavernaAtual].getFlecha() != null) {
   	        player.setFlechas(player.getFlechas() + 1); // Adiciona uma flecha ao inventário do jogador
   	        cavernas[cavernaAtual].setFlecha(null); // Remove a flecha da caverna
+  	        TotalDeFlechas--; // Remove uma flecha do Jogo
   	        output.printArrowPickup(); // Imprime uma mensagem informando que uma flecha foi coletada
   	    }
   	}
@@ -410,35 +425,7 @@ public class Jogo {
         	MoverPara(output, cavernas[cavernaAtual].getOeste());
         } 
         else if (numero == 5) {
-            if (player.getFlechas() > 0) {
-                System.out.println("Ok, vamos lá. Escolha a caverna em que deseja atirar a flecha: "
-                				 + "\n1 - Leste"
-                				 + "\n2 - Sul"
-                				 + "\n3 - Oeste");
-                int escolha = Integer.parseInt(input.promptUserForChoice());
-                
-                if (escolha == 1) {
-                	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getLeste(), "Wumpus")) {
-                		finalizarJogo("Vitória");
-                	}
-                }
-                else if (escolha == 2) {
-                	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getSul(), "Wumpus")) {
-                		finalizarJogo("Vitória");
-                	}
-                }
-                else if (escolha == 3) {
-                	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getOeste(), "Wumpus")) {
-                		finalizarJogo("Vitória");
-                	}
-                }
-                else {
-                	output.printInvalidOption();
-                }
-                
-            } else {
-                output.printNoArrows();
-            }
+        	AtirarFlecha(input, output);
         } 
         else {
             output.printInvalidOption();
@@ -454,6 +441,53 @@ public class Jogo {
             verificarCavernas();
         } else {
             output.printInvalidOption();
+        }
+    }
+    
+    public void AtirarFlecha(Input input, Output output) {
+    	if (player.getFlechas() > 0) {
+            output.printMenuShootArrow();
+            int escolha = Integer.parseInt(input.promptUserForChoice());
+            
+            if (escolha == 1) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getLeste(), "Wumpus")) {
+            		finalizarJogo("Vitoria");
+            	}
+            	else {
+            		player.setFlechas(player.getFlechas() - 1);
+            		output.printMiss();
+            	}
+            }
+            else if (escolha == 2) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getSul(), "Wumpus")) {
+            		finalizarJogo("Vitoria");
+            	}
+            	else {
+            		player.setFlechas(player.getFlechas() - 1);
+            		output.printMiss();
+            	}
+            }
+            else if (escolha == 3) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getOeste(), "Wumpus")) {
+            		finalizarJogo("Vitoria");
+            	}
+            	else {
+            		player.setFlechas(player.getFlechas() - 1);
+            		output.printMiss();
+            	}
+            }
+            else {
+            	output.printInvalidOption();
+            }
+            
+        } else {
+        	if (TotalDeFlechas == 0) {
+        		output.printOutOfArrows();
+        		finalizarJogo("Derrota");
+        	}
+        	else {
+                output.printNoArrows();
+        	}
         }
     }
     
