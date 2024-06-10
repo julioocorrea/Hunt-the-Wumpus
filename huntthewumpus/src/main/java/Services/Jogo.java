@@ -81,7 +81,7 @@ public class Jogo {
 	    Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
 
 	    // Posiciona aleatoriamente o morcego em uma caverna
-	    int cavernaMorcego = 10;
+	    int cavernaMorcego = r.nextInt(13);
 	    cavernas[cavernaMorcego].inimigo = morcego;
 
 	    // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
