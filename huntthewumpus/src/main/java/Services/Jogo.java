@@ -101,18 +101,13 @@ public class Jogo {
         cavernas[cavernaPoco2].inimigo = poco2;
 
         // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
-        MoverWumpus(r);
+    	int cavernaAntiga = cavernaWumpus;
+    	cavernas[cavernaAntiga].inimigo = null;
+        do {
+            cavernaWumpus = r.nextInt(21) + 5;
+        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
+        cavernas[cavernaWumpus].inimigo = wumpus;
 	    
-	    System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
-	    System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
-	    System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
-	    System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
-	    
-	    System.out.println(cavernaWumpus);
-	    System.out.println(cavernaPoco1);
-	    System.out.println(cavernaPoco2);
-	    System.out.println(cavernaMorcego);
-
 	    // Coloca aleatoriamente flechas nas cavernas
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 1"));
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 2"));
@@ -142,14 +137,8 @@ public class Jogo {
     	int inddirecaoOeste = 5;
         
         do {
-        	
         	for (int i = 0; i < 3; i++) {
         		if (cavernas[8].getOeste() == null) {
-                    System.out.println(indCaverna);
-                    System.out.println(inddirecaoNorte);
-                    System.out.println(inddirecaoLeste);
-                    System.out.println(inddirecaoSul);
-                    System.out.println(inddirecaoOeste);
     	        	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
     	            cavernas[indCaverna].mapear(Direcao.LESTE, cavernas[inddirecaoLeste]);
     	            cavernas[indCaverna].mapear(Direcao.SUL, cavernas[inddirecaoSul]);
