@@ -29,15 +29,20 @@ public class Jogo {
 
 	// Instância do inimigo Morcego (Bat) no jogo.
 	Morcego morcego = new Morcego("Bat");
+	
+	int cavernaMorcego;
 
 	// Instância do inimigo Wumpus no jogo.
 	Wumpus wumpus = new Wumpus("Wumpus");
+    int cavernaWumpus;
 
 	// Instância do inimigo Poço1 (Pit1) no jogo.
 	Poco poco1 = new Poco("Pit");
+	int cavernaPoco1;
 	
 	// Instância do inimigo Poço2 (Pit2) no jogo.
 	Poco poco2 = new Poco("Pit");
+    int cavernaPoco2;
 
 	// Instância do mapa que mapeia as conexões entre as cavernas.
 	Mapa mapa = new Mapa();
@@ -80,29 +85,23 @@ public class Jogo {
 
 	    Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
 
-	    int cavernaMorcego = r.nextInt(13);
+	    cavernaMorcego = r.nextInt(13);
         cavernas[cavernaMorcego].inimigo = morcego;
 
         // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
-        int cavernaPoco1;
         do {
             cavernaPoco1 = r.nextInt(13);
         } while (cavernaPoco1 == cavernaMorcego);
         cavernas[cavernaPoco1].inimigo = poco1;
 
         // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego e do primeiro poço
-        int cavernaPoco2;
         do {
             cavernaPoco2 = r.nextInt(13);
         } while (cavernaPoco2 == cavernaMorcego || cavernaPoco2 == cavernaPoco1);
         cavernas[cavernaPoco2].inimigo = poco2;
 
         // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
-        int cavernaWumpus;
-        do {
-            cavernaWumpus = r.nextInt(21) + 5;
-        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
-        cavernas[cavernaWumpus].inimigo = wumpus;
+        MoverWumpus(r);
 	    
 	    System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
 	    System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
@@ -129,6 +128,7 @@ public class Jogo {
     
 	// Método responsável por iniciar a aventura do jogador, permitindo que ele faça movimentos e tome decisões enquanto o jogo não acabar.
     public void IniciarAventura(Output output, Input input){
+    	Random r = new Random();
         // Loop principal que executa enquanto o jogo não acabar
         while(!fimDeJogo) {
         	// Declaração das opções de movimento disponíveis para o jogador
@@ -185,6 +185,7 @@ public class Jogo {
                 int numero = Integer.parseInt(opcao);
                 
                 MoverJogador(input, output, numero);
+                MoverWumpus(r);
             }
         }
     }
@@ -434,6 +435,14 @@ public class Jogo {
         else {
             output.printInvalidOption();
         }
+    }
+    
+    public void MoverWumpus(Random r) {
+        // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
+        do {
+            cavernaWumpus = r.nextInt(21) + 5;
+        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
+        cavernas[cavernaWumpus].inimigo = wumpus;
     }
 
     public void MoverPara(Output output, Caverna novaCaverna) {
