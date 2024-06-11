@@ -101,8 +101,6 @@ public class Jogo {
         cavernas[cavernaPoco2].inimigo = poco2;
 
         // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
-    	int cavernaAntiga = cavernaWumpus;
-    	cavernas[cavernaAntiga].inimigo = null;
         do {
             cavernaWumpus = r.nextInt(21) + 5;
         } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
