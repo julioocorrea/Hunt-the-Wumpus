@@ -131,6 +131,76 @@ public class Jogo {
 	    }
 	}
     
+    public void MapearCavernas() {
+
+        mapa.setRaiz(cavernas[0], cavernas[1]);
+        mapa.criarPrimeiraSubArvore(cavernas[1],cavernas[3],cavernas[4],cavernas[2] );
+    	int indCaverna = 2;
+    	int inddirecaoNorte = 1;
+    	int inddirecaoLeste = 7;
+    	int inddirecaoSul = 6;
+    	int inddirecaoOeste = 5;
+        
+        do {
+        	
+        	for (int i = 0; i < 3; i++) {
+        		if (cavernas[8].getOeste() == null) {
+                    System.out.println(indCaverna);
+                    System.out.println(inddirecaoNorte);
+                    System.out.println(inddirecaoLeste);
+                    System.out.println(inddirecaoSul);
+                    System.out.println(inddirecaoOeste);
+    	        	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
+    	            cavernas[indCaverna].mapear(Direcao.LESTE, cavernas[inddirecaoLeste]);
+    	            cavernas[indCaverna].mapear(Direcao.SUL, cavernas[inddirecaoSul]);
+    	            cavernas[indCaverna].mapear(Direcao.OESTE, cavernas[inddirecaoOeste]);
+    	            
+    	            indCaverna++;
+    	            inddirecaoLeste = inddirecaoLeste + 3;
+    	            inddirecaoSul = inddirecaoSul + 3;
+    	            inddirecaoOeste = inddirecaoOeste + 3;
+        		}
+        		else {
+        			break;
+        		}
+        	}
+            
+            inddirecaoNorte++;
+
+        }while(cavernas[8].getOeste() == null);
+        
+        cavernas[9].mapear(Direcao.NORTE, cavernas[3]);
+        cavernas[9].mapear(Direcao.LESTE, null);
+        cavernas[9].mapear(Direcao.SUL, null);
+        cavernas[9].mapear(Direcao.OESTE, null);
+        
+        cavernas[10].mapear(Direcao.NORTE, cavernas[3]);
+        cavernas[10].mapear(Direcao.LESTE, null);
+        cavernas[10].mapear(Direcao.SUL, null);
+        cavernas[10].mapear(Direcao.OESTE, null);
+        
+    	indCaverna = 11;
+    	inddirecaoNorte = 4;
+        do {
+        	for (int i = 0; i < 3; i++) {
+        		if (cavernas[25].getNorte() == null) {
+                	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
+                    cavernas[indCaverna].mapear(Direcao.LESTE, null);
+                    cavernas[indCaverna].mapear(Direcao.SUL, null);
+                    cavernas[indCaverna].mapear(Direcao.OESTE, null);
+                    indCaverna++;
+        		}
+        		else {
+        			break;
+        		}
+        	}
+            
+            inddirecaoNorte++;
+
+        }while(cavernas[25].getNorte() == null);
+        
+    }
+	
 	// Método responsável por iniciar a aventura do jogador, permitindo que ele faça movimentos e tome decisões enquanto o jogo não acabar.
     public void IniciarAventura(Output output, Input input){
     	Random r = new Random();
@@ -194,7 +264,7 @@ public class Jogo {
         }
     }
     
-  //Verifica a presença de elementos importantes nas cavernas ao redor do jogador atual.
+    //Verifica a presença de elementos importantes nas cavernas ao redor do jogador atual.
   	public void verificarCavernas() {
   	    // Se o jogo ainda não terminou após a verificação do poço, verifica a presença de morcego.
   	    if(!fimDeJogo) {
@@ -288,76 +358,6 @@ public class Jogo {
   	        }
   	    }
   	}
-    
-    public void MapearCavernas() {
-
-        mapa.setRaiz(cavernas[0], cavernas[1]);
-        mapa.criarPrimeiraSubArvore(cavernas[1],cavernas[3],cavernas[4],cavernas[2] );
-    	int indCaverna = 2;
-    	int inddirecaoNorte = 1;
-    	int inddirecaoLeste = 7;
-    	int inddirecaoSul = 6;
-    	int inddirecaoOeste = 5;
-        
-        do {
-        	
-        	for (int i = 0; i < 3; i++) {
-        		if (cavernas[8].getOeste() == null) {
-                    System.out.println(indCaverna);
-                    System.out.println(inddirecaoNorte);
-                    System.out.println(inddirecaoLeste);
-                    System.out.println(inddirecaoSul);
-                    System.out.println(inddirecaoOeste);
-    	        	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
-    	            cavernas[indCaverna].mapear(Direcao.LESTE, cavernas[inddirecaoLeste]);
-    	            cavernas[indCaverna].mapear(Direcao.SUL, cavernas[inddirecaoSul]);
-    	            cavernas[indCaverna].mapear(Direcao.OESTE, cavernas[inddirecaoOeste]);
-    	            
-    	            indCaverna++;
-    	            inddirecaoLeste = inddirecaoLeste + 3;
-    	            inddirecaoSul = inddirecaoSul + 3;
-    	            inddirecaoOeste = inddirecaoOeste + 3;
-        		}
-        		else {
-        			break;
-        		}
-        	}
-            
-            inddirecaoNorte++;
-
-        }while(cavernas[8].getOeste() == null);
-        
-        cavernas[9].mapear(Direcao.NORTE, cavernas[3]);
-        cavernas[9].mapear(Direcao.LESTE, null);
-        cavernas[9].mapear(Direcao.SUL, null);
-        cavernas[9].mapear(Direcao.OESTE, null);
-        
-        cavernas[10].mapear(Direcao.NORTE, cavernas[3]);
-        cavernas[10].mapear(Direcao.LESTE, null);
-        cavernas[10].mapear(Direcao.SUL, null);
-        cavernas[10].mapear(Direcao.OESTE, null);
-        
-    	indCaverna = 11;
-    	inddirecaoNorte = 4;
-        do {
-        	for (int i = 0; i < 3; i++) {
-        		if (cavernas[25].getNorte() == null) {
-                	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
-                    cavernas[indCaverna].mapear(Direcao.LESTE, null);
-                    cavernas[indCaverna].mapear(Direcao.SUL, null);
-                    cavernas[indCaverna].mapear(Direcao.OESTE, null);
-                    indCaverna++;
-        		}
-        		else {
-        			break;
-        		}
-        	}
-            
-            inddirecaoNorte++;
-
-        }while(cavernas[25].getNorte() == null);
-        
-    }
 
     public void finalizarJogo(String resultado) {
         fimDeJogo = true;
@@ -384,29 +384,7 @@ public class Jogo {
             output.printInvalidOption();
         }
     }
-    
-    public void MoverWumpus(Random r) {
-        // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
-    	int cavernaAntiga = cavernaWumpus;
-    	cavernas[cavernaAntiga].inimigo = null;
-        do {
-            cavernaWumpus = r.nextInt(21) + 5;
-        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
-        cavernas[cavernaWumpus].inimigo = wumpus;
-    }
-
-    public void MoverPara(Output output, Caverna novaCaverna) {
-        if (novaCaverna != null) {
-        	novaCaverna.setPlayer(cavernas[cavernaAtual].getPlayer());
-            cavernas[cavernaAtual].setPlayer(null);
-            cavernaAtual = CavService.compararCaverna(novaCaverna, cavernas);
-            cavernasVisitadas.add(cavernaAtual);
-            verificarCavernas();
-        } else {
-            output.printInvalidOption();
-        }
-    }
-    
+  
     public void AtirarFlecha(Input input, Output output) {
     	if (player.getFlechas() > 0) {
             output.printMenuShootArrow();
@@ -464,5 +442,28 @@ public class Jogo {
 	        return true;
 	    }
 	}
+    
+    public void MoverPara(Output output, Caverna novaCaverna) {
+        if (novaCaverna != null) {
+        	novaCaverna.setPlayer(cavernas[cavernaAtual].getPlayer());
+            cavernas[cavernaAtual].setPlayer(null);
+            cavernaAtual = CavService.compararCaverna(novaCaverna, cavernas);
+            cavernasVisitadas.add(cavernaAtual);
+            verificarCavernas();
+        } else {
+            output.printInvalidOption();
+        }
+    }
+    
+    public void MoverWumpus(Random r) {
+        // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
+    	int cavernaAntiga = cavernaWumpus;
+    	cavernas[cavernaAntiga].inimigo = null;
+        do {
+            cavernaWumpus = r.nextInt(21) + 5;
+        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
+        cavernas[cavernaWumpus].inimigo = wumpus;
+    }
+    
 
 }
