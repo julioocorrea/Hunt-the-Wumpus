@@ -107,6 +107,11 @@ public class Jogo {
 	    System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
 	    System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
 	    System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
+	    
+	    System.out.println(cavernaWumpus);
+	    System.out.println(cavernaPoco1);
+	    System.out.println(cavernaPoco2);
+	    System.out.println(cavernaMorcego);
 
 	    // Coloca aleatoriamente flechas nas cavernas
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 1"));
@@ -183,9 +188,8 @@ public class Jogo {
             } else {
             	// Converte a opção para inteiro
                 int numero = Integer.parseInt(opcao);
-                
-                MoverJogador(input, output, numero);
                 MoverWumpus(r);
+                MoverJogador(input, output, numero);
             }
         }
     }
@@ -289,41 +293,39 @@ public class Jogo {
 
         mapa.setRaiz(cavernas[0], cavernas[1]);
         mapa.criarPrimeiraSubArvore(cavernas[1],cavernas[3],cavernas[4],cavernas[2] );
+    	int indCaverna = 2;
+    	int inddirecaoNorte = 1;
+    	int inddirecaoLeste = 7;
+    	int inddirecaoSul = 6;
+    	int inddirecaoOeste = 5;
+        
+        do {
+        	
+        	for (int i = 0; i < 3; i++) {
+        		if (cavernas[8].getOeste() == null) {
+                    System.out.println(indCaverna);
+                    System.out.println(inddirecaoNorte);
+                    System.out.println(inddirecaoLeste);
+                    System.out.println(inddirecaoSul);
+                    System.out.println(inddirecaoOeste);
+    	        	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
+    	            cavernas[indCaverna].mapear(Direcao.LESTE, cavernas[inddirecaoLeste]);
+    	            cavernas[indCaverna].mapear(Direcao.SUL, cavernas[inddirecaoSul]);
+    	            cavernas[indCaverna].mapear(Direcao.OESTE, cavernas[inddirecaoOeste]);
+    	            
+    	            indCaverna++;
+    	            inddirecaoLeste = inddirecaoLeste + 3;
+    	            inddirecaoSul = inddirecaoSul + 3;
+    	            inddirecaoOeste = inddirecaoOeste + 3;
+        		}
+        		else {
+        			break;
+        		}
+        	}
+            
+            inddirecaoNorte++;
 
-        cavernas[2].mapear(Direcao.NORTE, cavernas[1]);
-        cavernas[2].mapear(Direcao.LESTE, cavernas[7]);
-        cavernas[2].mapear(Direcao.SUL, cavernas[6]);
-        cavernas[2].mapear(Direcao.OESTE, cavernas[5]);
-
-        cavernas[3].mapear(Direcao.NORTE, cavernas[1]);
-        cavernas[3].mapear(Direcao.LESTE, cavernas[10]);
-        cavernas[3].mapear(Direcao.SUL, cavernas[9]);
-        cavernas[3].mapear(Direcao.OESTE, cavernas[8]);
-
-        cavernas[4].mapear(Direcao.NORTE, cavernas[1]);
-        cavernas[4].mapear(Direcao.LESTE, cavernas[13]);
-        cavernas[4].mapear(Direcao.SUL, cavernas[12]);
-        cavernas[4].mapear(Direcao.OESTE, cavernas[11]);
-
-        cavernas[5].mapear(Direcao.NORTE, cavernas[2]);
-        cavernas[5].mapear(Direcao.LESTE, cavernas[16]);
-        cavernas[5].mapear(Direcao.SUL, cavernas[15]);
-        cavernas[5].mapear(Direcao.OESTE, cavernas[14]);
-
-        cavernas[6].mapear(Direcao.NORTE, cavernas[2]);
-        cavernas[6].mapear(Direcao.LESTE, cavernas[19]);
-        cavernas[6].mapear(Direcao.SUL, cavernas[18]);
-        cavernas[6].mapear(Direcao.OESTE, cavernas[17]);
-
-        cavernas[7].mapear(Direcao.NORTE, cavernas[2]);
-        cavernas[7].mapear(Direcao.LESTE, cavernas[22]);
-        cavernas[7].mapear(Direcao.SUL, cavernas[21]);
-        cavernas[7].mapear(Direcao.OESTE, cavernas[20]);
-
-        cavernas[8].mapear(Direcao.NORTE, cavernas[3]);
-        cavernas[8].mapear(Direcao.LESTE, cavernas[25]);
-        cavernas[8].mapear(Direcao.SUL, cavernas[24]);
-        cavernas[8].mapear(Direcao.OESTE, cavernas[23]);
+        }while(cavernas[8].getOeste() == null);
         
         cavernas[9].mapear(Direcao.NORTE, cavernas[3]);
         cavernas[9].mapear(Direcao.LESTE, null);
@@ -335,80 +337,26 @@ public class Jogo {
         cavernas[10].mapear(Direcao.SUL, null);
         cavernas[10].mapear(Direcao.OESTE, null);
         
-        cavernas[11].mapear(Direcao.NORTE, cavernas[4]);
-        cavernas[11].mapear(Direcao.LESTE, null);
-        cavernas[11].mapear(Direcao.SUL, null);
-        cavernas[11].mapear(Direcao.OESTE, null);
+    	indCaverna = 11;
+    	inddirecaoNorte = 4;
+        do {
+        	for (int i = 0; i < 3; i++) {
+        		if (cavernas[25].getNorte() == null) {
+                	cavernas[indCaverna].mapear(Direcao.NORTE, cavernas[inddirecaoNorte]);
+                    cavernas[indCaverna].mapear(Direcao.LESTE, null);
+                    cavernas[indCaverna].mapear(Direcao.SUL, null);
+                    cavernas[indCaverna].mapear(Direcao.OESTE, null);
+                    indCaverna++;
+        		}
+        		else {
+        			break;
+        		}
+        	}
+            
+            inddirecaoNorte++;
+
+        }while(cavernas[25].getNorte() == null);
         
-        cavernas[12].mapear(Direcao.NORTE, cavernas[4]);
-        cavernas[12].mapear(Direcao.LESTE, null);
-        cavernas[12].mapear(Direcao.SUL, null);
-        cavernas[12].mapear(Direcao.OESTE, null);
-        
-        cavernas[13].mapear(Direcao.NORTE, cavernas[4]);
-        cavernas[13].mapear(Direcao.LESTE, null);
-        cavernas[13].mapear(Direcao.SUL, null);
-        cavernas[13].mapear(Direcao.OESTE, null);
-        
-        cavernas[14].mapear(Direcao.NORTE, cavernas[5]);
-        cavernas[14].mapear(Direcao.LESTE, null);
-        cavernas[14].mapear(Direcao.SUL, null);
-        cavernas[14].mapear(Direcao.OESTE, null);
-        
-        cavernas[15].mapear(Direcao.NORTE, cavernas[5]);
-        cavernas[15].mapear(Direcao.LESTE, null);
-        cavernas[15].mapear(Direcao.SUL, null);
-        cavernas[15].mapear(Direcao.OESTE, null);
-        
-        cavernas[16].mapear(Direcao.NORTE, cavernas[5]);
-        cavernas[16].mapear(Direcao.LESTE, null);
-        cavernas[16].mapear(Direcao.SUL, null);
-        cavernas[16].mapear(Direcao.OESTE, null);
-        
-        cavernas[17].mapear(Direcao.NORTE, cavernas[6]);
-        cavernas[17].mapear(Direcao.LESTE, null);
-        cavernas[17].mapear(Direcao.SUL, null);
-        cavernas[17].mapear(Direcao.OESTE, null);
-        
-        cavernas[18].mapear(Direcao.NORTE, cavernas[6]);
-        cavernas[18].mapear(Direcao.LESTE, null);
-        cavernas[18].mapear(Direcao.SUL, null);
-        cavernas[18].mapear(Direcao.OESTE, null);
-        
-        cavernas[19].mapear(Direcao.NORTE, cavernas[6]);
-        cavernas[19].mapear(Direcao.LESTE, null);
-        cavernas[19].mapear(Direcao.SUL, null);
-        cavernas[19].mapear(Direcao.OESTE, null);
-        
-        cavernas[20].mapear(Direcao.NORTE, cavernas[7]);
-        cavernas[20].mapear(Direcao.LESTE, null);
-        cavernas[20].mapear(Direcao.SUL, null);
-        cavernas[20].mapear(Direcao.OESTE, null);
-        
-        cavernas[21].mapear(Direcao.NORTE, cavernas[7]);
-        cavernas[21].mapear(Direcao.LESTE, null);
-        cavernas[21].mapear(Direcao.SUL, null);
-        cavernas[21].mapear(Direcao.OESTE, null);
-        
-        cavernas[22].mapear(Direcao.NORTE, cavernas[7]);
-        cavernas[22].mapear(Direcao.LESTE, null);
-        cavernas[22].mapear(Direcao.SUL, null);
-        cavernas[22].mapear(Direcao.OESTE, null);
-        
-        cavernas[23].mapear(Direcao.NORTE, cavernas[8]);
-        cavernas[23].mapear(Direcao.LESTE, null);
-        cavernas[23].mapear(Direcao.SUL, null);
-        cavernas[23].mapear(Direcao.OESTE, null);
-        
-        cavernas[24].mapear(Direcao.NORTE, cavernas[8]);
-        cavernas[24].mapear(Direcao.LESTE, null);
-        cavernas[24].mapear(Direcao.SUL, null);
-        cavernas[24].mapear(Direcao.OESTE, null);
-        
-        cavernas[25].mapear(Direcao.NORTE, cavernas[8]);
-        cavernas[25].mapear(Direcao.LESTE, null);
-        cavernas[25].mapear(Direcao.SUL, null);
-        cavernas[25].mapear(Direcao.OESTE, null);
     }
 
     public void finalizarJogo(String resultado) {
@@ -439,6 +387,8 @@ public class Jogo {
     
     public void MoverWumpus(Random r) {
         // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
+    	int cavernaAntiga = cavernaWumpus;
+    	cavernas[cavernaAntiga].inimigo = null;
         do {
             cavernaWumpus = r.nextInt(21) + 5;
         } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
