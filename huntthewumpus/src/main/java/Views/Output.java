@@ -15,22 +15,22 @@ public class Output {
     private static final String ASKPLAYERNAME = "Qual seu nome?";
     private static final String INVALID_OPTION = "❌ Opção inválida. Tente novamente. ❌";
     private static final String ONLY_NUMBERS_ALLOWED = "Somente números são permitidos!";
-    private static final String YOU_AWAKE_IN_CAVERN = "🕸️🦇 Você acorda em uma caverna escura e úmida...";
+    private static final String YOU_AWAKE_IN_CAVERN = "🕸️🦇🗺️ Você acorda em uma caverna escura e úmida... 🕸️🦇🗺️ ";
     private static final String PATH_TRAVERSED = "🗺️ Caminho percorrido: ";
     private static final String LIFE_STATUS = "❤️ Vida: ";
     private static final String ARROW_STATUS = "🏹 Flechas: ";
     private static final String BACK_OPTION = "5 - Voltar";
-    private static final String NO_ARROWS_MESSAGE = "➴ Você está sem flechas! ➴";
+    private static final String NO_ARROWS_MESSAGE = "➴❌ Você está sem flechas! ❌➴";
     private static final String VICTORY_MESSAGE = "🧝🏻🏹 Você derrotou o terrível monstro Wumpus! 🧝🏻🏹";
     private static final String DEFEAT_MESSAGE = "💀 Que pena! Você morreu... 💀";
     private static final String MISS_MESSAGE = "🎯❌ Errou o alvo! 🎯❌";
-    private static final String BREEZE_NEARBY = "🍃 Você sente uma brisa suave... 🍃";
+    private static final String BREEZE_NEARBY = "🍃🍃 Você sente uma brisa suave... 🍃🍃";
     private static final String FALLEN_IN_PIT = "🕳️ Você caiu em um poço e se machucou (-50 de vida) 🕳️";
-    private static final String BAT_FLAPPING_NEARBY = "🦇 Ouviu um bater de asas...";
-    private static final String CARRIED_BY_BAT = "🦇 Um morcego te encontrou e te levou para outra caverna! 🦇";
-    private static final String WUMPUS_ODOR_NEARBY = "☢ Você sente um cheiro horrível... ☢";
+    private static final String BAT_FLAPPING_NEARBY = "🦇🦇 Ouviu um bater de asas... 🦇🦇";
+    private static final String CARRIED_BY_BAT = "🧝🏻🦇 Um morcego te encontrou e te levou para outra caverna! 🧝🏻🦇";
+    private static final String WUMPUS_ODOR_NEARBY = "☢👹 Você sente um cheiro horrível... 👹☢";
     private static final String WUMPUS_ATTACK = "👹⚔️ Você entrou na caverna do Wumpus e ele te atacou! ⚔️👹";
-    private static final String PICKED_UP_ARROW = "➴ Você pegou uma flecha ➴";
+    private static final String PICKED_UP_ARROW = "➴➴ Você pegou uma flecha ➴➴";
     private static final String OUT_OF_ARROWS = "➴❌ Todas as flechas acabaram. Você não pode mais matar o monstro! ➴❌";
     private static final String GAME_OVER = "Obrigado por jogar! Volte novamente a qualquer momento";
     private static final String DIVIDER = "🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧝🏻🏹👹🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱";
@@ -144,7 +144,7 @@ public class Output {
         System.out.println(BAT_FLAPPING_NEARBY);
     	System.out.println(DIVIDER);
     }
-
+    
     public void printCarriedByBat() {
     	System.out.println(DIVIDER);
         System.out.println(CARRIED_BY_BAT);

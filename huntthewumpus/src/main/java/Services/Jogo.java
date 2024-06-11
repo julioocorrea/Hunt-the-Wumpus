@@ -80,30 +80,34 @@ public class Jogo {
 
 	    Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
 
-	    // Posiciona aleatoriamente o morcego em uma caverna
 	    int cavernaMorcego = r.nextInt(13);
-	    cavernas[cavernaMorcego].inimigo = morcego;
+        cavernas[cavernaMorcego].inimigo = morcego;
 
-	    // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
-	    int cavernaPoco1 = 0;
-	    while (cavernaPoco1 != cavernaMorcego) {
-	        cavernaPoco1 = r.nextInt(13);
-	    }
-	    cavernas[cavernaPoco1].inimigo = poco1;
+        // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
+        int cavernaPoco1;
+        do {
+            cavernaPoco1 = r.nextInt(13);
+        } while (cavernaPoco1 == cavernaMorcego);
+        cavernas[cavernaPoco1].inimigo = poco1;
+
+        // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego e do primeiro poço
+        int cavernaPoco2;
+        do {
+            cavernaPoco2 = r.nextInt(13);
+        } while (cavernaPoco2 == cavernaMorcego || cavernaPoco2 == cavernaPoco1);
+        cavernas[cavernaPoco2].inimigo = poco2;
+
+        // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e dos poços
+        int cavernaWumpus;
+        do {
+            cavernaWumpus = r.nextInt(21) + 5;
+        } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
+        cavernas[cavernaWumpus].inimigo = wumpus;
 	    
-	    // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
-	    int cavernaPoco2 = 0;
-	    while (cavernaPoco2 != cavernaMorcego && cavernaPoco1 != cavernaPoco2) {
-	        cavernaPoco2 = r.nextInt(13);
-	    }
-	    cavernas[cavernaPoco2].inimigo = poco2;
-
-	    // Posiciona aleatoriamente o wumpus em uma caverna diferente das cavernas do morcego e do poço
-	    int cavernaWumpus = 0;
-	    while (cavernaWumpus != cavernaMorcego && cavernaWumpus != cavernaPoco1 && cavernaWumpus != cavernaPoco2) {
-	        cavernaWumpus = r.nextInt(21) + 5;
-	    }
-	    cavernas[cavernaWumpus].inimigo = wumpus;
+	    System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
+	    System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
+	    System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
+	    System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
 
 	    // Coloca aleatoriamente flechas nas cavernas
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 1"));
@@ -112,7 +116,7 @@ public class Jogo {
 
 	    // Posiciona o jogador em uma caverna inicial
 	    cavernas[cavernaAtual].setPlayer(new Player(nomeDoJogador));
-
+	    
 	    IniciarAventura(output, input); // Inicia a aventura do jogador
 	    
 	    if (ResultadoJogo.equals("Vitoria")) {
@@ -187,21 +191,21 @@ public class Jogo {
     
   //Verifica a presença de elementos importantes nas cavernas ao redor do jogador atual.
   	public void verificarCavernas() {
-  	    // Se o jogo não terminou, verifica a presença do Wumpus na caverna atual ou adjacente.
+  	    // Se o jogo ainda não terminou após a verificação do poço, verifica a presença de morcego.
   	    if(!fimDeJogo) {
-  	        verificarWumpus();
+  	        verificarMorcego();
   	    }
   	    // Se o jogo ainda não terminou após a verificação do Wumpus, verifica a presença de um poço.
   	    if(!fimDeJogo) {
   	        verificarPoco();
   	    }
-  	    // Se o jogo ainda não terminou após a verificação do poço, verifica a presença de morcego.
-  	    if(!fimDeJogo) {
-  	        verificarMorcego();
-  	    }
   	    // Se o jogo ainda não terminou após a verificação do morcego, verifica a presença de flechas.
   	    if(!fimDeJogo) {
   	        verificarFlechas();
+  	    }
+  	    // Se o jogo não terminou, verifica a presença do Wumpus na caverna atual ou adjacente.
+  	    if(!fimDeJogo) {
+  	        verificarWumpus();
   	    }
   	}
 
@@ -209,7 +213,7 @@ public class Jogo {
   	public void verificarWumpus() {
   	    Output output = new Output(); // Instância da classe de saída para exibir mensagens
   	    // Verifica se o Wumpus está presente em uma caverna adjacente
-  	    if (CavService.verificarInimigo("Wumpus", cavernas, cavernaAtual)) {
+  	    if (CavService.verificarInimigo("Wumpus", cavernas, cavernaAtual) && cavernas[cavernaAtual].getInimigo() == null) {
   	        output.printNearWumpus(); // Imprime uma mensagem informando a proximidade do Wumpus
   	    }
   	    // Verifica se o jogador entrou na caverna com o Wumpus
@@ -225,7 +229,7 @@ public class Jogo {
   	public void verificarPoco() {
   	    Output output = new Output(); // Instância da classe de saída para exibir mensagens
   	    // Verifica se há um poço em uma caverna adjacente
-  	    if (CavService.verificarInimigo("Pit", cavernas, cavernaAtual)) {
+  	    if (CavService.verificarInimigo("Pit", cavernas, cavernaAtual) && cavernas[cavernaAtual].getInimigo() == null) {
   	        output.printNearPit(); // Imprime uma mensagem informando a proximidade do poço
   	    }
 
@@ -258,7 +262,7 @@ public class Jogo {
   	public void verificarMorcego() {
   	    Output output = new Output(); // Instância da classe de saída para exibir mensagens
   	    // Verifica se há um morcego na caverna atual ou adjacente
-  	    if (CavService.verificarInimigo("Bat", cavernas, cavernaAtual)) {
+  	    if (CavService.verificarInimigo("Bat", cavernas, cavernaAtual) && cavernas[cavernaAtual].getInimigo() == null) {
   	        output.printNearBat(); // Imprime uma mensagem informando a proximidade do morcego
   	    }
   	    // Verifica se o jogador entrou na caverna com o morcego
@@ -271,7 +275,7 @@ public class Jogo {
   	            cavernas[cavernaAtual].setPlayer(null);
   	            cavernaAtual = CavService.compararCaverna(cavernas[cavernaAleatoria], cavernas); // Atualiza a caverna atual
   	            cavernasVisitadas.add(cavernaAleatoria); // Adiciona a caverna à lista de cavernas visitadas
-  	            output.printNearBat(); // Imprime uma mensagem informando a proximidade do morcego
+  	            output.printCarriedByBat(); // Imprime uma mensagem informando a proximidade do morcego
   	            // Após o movimento do jogador, verifica novamente a presença de Wumpus, poço e morcego
   	            verificarWumpus();
   	            verificarPoco();
