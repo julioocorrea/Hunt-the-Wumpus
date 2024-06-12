@@ -96,7 +96,7 @@ public class Jogo {
 
         // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego e do primeiro poço
         do {
-            cavernaPoco2 = r.nextInt(13);
+            cavernaPoco2 = r.nextInt(25);
         } while (cavernaPoco2 == cavernaMorcego || cavernaPoco2 == cavernaPoco1);
         cavernas[cavernaPoco2].inimigo = poco2;
 
@@ -105,6 +105,16 @@ public class Jogo {
             cavernaWumpus = r.nextInt(21) + 5;
         } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
         cavernas[cavernaWumpus].inimigo = wumpus;
+        
+        System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
+        System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
+        System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
+        System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
+        
+        System.out.println(cavernaMorcego);
+        System.out.println(cavernaPoco1);
+        System.out.println(cavernaPoco2);
+        System.out.println(cavernaWumpus);
 	    
 	    // Coloca aleatoriamente flechas nas cavernas
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 1"));
@@ -225,7 +235,7 @@ public class Jogo {
                 opcaoOeste = "Não há caminho para o oeste!";
             }
             // Verifica se o Wumpus está próximo para possibilitar o uso de flechas
-            if(CavService.verificarInimigo("Wumpus", cavernas, cavernaAtual)) {
+            if(CavService.verificarInimigo("Wumpus", cavernas, cavernaAtual) && player.getFlechas() > 0) {
                 opcaoFlecha = "5 - Escolher caverna para atirar uma flecha";
             } else {
                 opcaoFlecha = "Você ainda não corre perigo";
@@ -378,7 +388,7 @@ public class Jogo {
             int escolha = Integer.parseInt(input.promptUserForChoice());
             
             if (escolha == 1) {
-            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getLeste(), "Wumpus")) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getNorte(), "Wumpus")) {
             		finalizarJogo("Vitoria");
             	}
             	else {
@@ -387,7 +397,7 @@ public class Jogo {
             	}
             }
             else if (escolha == 2) {
-            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getSul(), "Wumpus")) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getLeste(), "Wumpus")) {
             		finalizarJogo("Vitoria");
             	}
             	else {
@@ -396,6 +406,15 @@ public class Jogo {
             	}
             }
             else if (escolha == 3) {
+            	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getSul(), "Wumpus")) {
+            		finalizarJogo("Vitoria");
+            	}
+            	else {
+            		player.setFlechas(player.getFlechas() - 1);
+            		output.printMiss();
+            	}
+            }
+            else if (escolha == 4) {
             	if (CavService.VerificarInimigoNaCaverna(cavernas[cavernaAtual].getOeste(), "Wumpus")) {
             		finalizarJogo("Vitoria");
             	}
