@@ -29,7 +29,6 @@ public class Jogo {
 
 	// Instância do inimigo Morcego (Bat) no jogo.
 	Morcego morcego = new Morcego("Bat");
-	
 	int cavernaMorcego;
 
 	// Instância do inimigo Wumpus no jogo.
@@ -85,18 +84,18 @@ public class Jogo {
 
 	    Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
 
-	    cavernaMorcego = r.nextInt(13);
+	    cavernaMorcego = r.nextInt(12) + 2;
         cavernas[cavernaMorcego].inimigo = morcego;
 
         // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego
         do {
-            cavernaPoco1 = r.nextInt(13);
+            cavernaPoco1 = r.nextInt(12) + 2;
         } while (cavernaPoco1 == cavernaMorcego);
         cavernas[cavernaPoco1].inimigo = poco1;
 
         // Posiciona aleatoriamente o poço em uma caverna diferente da caverna do morcego e do primeiro poço
         do {
-            cavernaPoco2 = r.nextInt(25);
+            cavernaPoco2 = r.nextInt(24) + 2;
         } while (cavernaPoco2 == cavernaMorcego || cavernaPoco2 == cavernaPoco1);
         cavernas[cavernaPoco2].inimigo = poco2;
 
@@ -105,16 +104,6 @@ public class Jogo {
             cavernaWumpus = r.nextInt(21) + 5;
         } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
         cavernas[cavernaWumpus].inimigo = wumpus;
-        
-        System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
-        System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
-        System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
-        System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
-        
-        System.out.println(cavernaMorcego);
-        System.out.println(cavernaPoco1);
-        System.out.println(cavernaPoco2);
-        System.out.println(cavernaWumpus);
 	    
 	    // Coloca aleatoriamente flechas nas cavernas
 	    cavernas[r.nextInt(25)].setFlecha(new Flecha("flecha 1"));
@@ -203,6 +192,17 @@ public class Jogo {
     	Random r = new Random();
         // Loop principal que executa enquanto o jogo não acabar
         while(!fimDeJogo) {
+            System.out.println(cavernas[cavernaMorcego].inimigo.getNome());
+            System.out.println(cavernas[cavernaPoco1].inimigo.getNome());
+            System.out.println(cavernas[cavernaPoco2].inimigo.getNome());
+            System.out.println(cavernas[cavernaWumpus].inimigo.getNome());
+            
+            System.out.println(cavernaMorcego);
+            System.out.println(cavernaPoco1);
+            System.out.println(cavernaPoco2);
+            System.out.println(cavernaWumpus);
+        	
+        	
         	// Declaração das opções de movimento disponíveis para o jogador
             String opcaoNorte;
             String opcaoLeste;
@@ -255,8 +255,8 @@ public class Jogo {
             } else {
             	// Converte a opção para inteiro
                 int numero = Integer.parseInt(opcao);
-                MoverWumpus(r);
                 MoverJogador(input, output, numero);
+                MoverWumpus(r);
             }
         }
     }
@@ -311,6 +311,9 @@ public class Jogo {
   	            player.setVida(player.getVida() - 50); // Reduz 50 pontos de vida do jogador
   	            output.printFallenPit(); // Imprime uma mensagem informando que o jogador caiu no poço
   	        }
+  	        if (CavService.verificarInimigo("Pit", cavernas, cavernaAtual)) {
+  	        	output.printNearPit(); // Imprime uma mensagem informando a proximidade do poço
+  	        }
   	    }
   	    boolean vivo = verificarVida(); // Verifica se o jogador ainda está vivo
   	    if (!vivo) {
@@ -342,8 +345,13 @@ public class Jogo {
   	        if (cavernas[cavernaAtual].getInimigo().getNome().equals("Bat")) {
   	            Random r = new Random(); // Instância um objeto Random para gerar números aleatórios
   	            int cavernaAleatoria = r.nextInt(25); // Gera um índice aleatório para uma caverna
+	  	        do {
+	  	            cavernaMorcego = r.nextInt(21) + 5;
+	  	        } while (cavernaWumpus == cavernaMorcego || cavernaMorcego == cavernaPoco1 || cavernaMorcego == cavernaPoco2);
+	  	        cavernas[cavernaMorcego].inimigo = morcego;
   	            // Move o jogador para a caverna aleatória e atualiza a caverna atual
   	            cavernas[cavernaAleatoria].setPlayer(cavernas[cavernaAtual].getPlayer());
+  	            cavernas[cavernaAtual].setInimigo(null);
   	            cavernas[cavernaAtual].setPlayer(null);
   	            cavernaAtual = CavService.compararCaverna(cavernas[cavernaAleatoria], cavernas); // Atualiza a caverna atual
   	            cavernasVisitadas.add(cavernaAleatoria); // Adiciona a caverna à lista de cavernas visitadas
@@ -469,6 +477,8 @@ public class Jogo {
             cavernaWumpus = r.nextInt(21) + 5;
         } while (cavernaWumpus == cavernaMorcego || cavernaWumpus == cavernaPoco1 || cavernaWumpus == cavernaPoco2);
         cavernas[cavernaWumpus].inimigo = wumpus;
+        
+        verificarWumpus();
     }
     
 

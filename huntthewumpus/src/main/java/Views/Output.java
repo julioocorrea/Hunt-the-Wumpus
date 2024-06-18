@@ -10,9 +10,9 @@ public class Output {
     private static final String MENU_EXIT = "                  𝟚 ➵ Sair";
     private static final String MENU_SHOOT_ARROW = "🧝🏻🏹👹 Ok, vamos lá. Escolha a caverna em que deseja atirar a flecha: 🧝🏻🏹👹";
     private static final String MENU_SHOOT_NORTH = "𝟙 ➵ Norte 🎯";
-    private static final String MENU_SHOOT_EAST = "𝟚 ➵ Sul 🎯";
-    private static final String MENU_SHOOT_SOUTH = "𝟛 ➵ Oeste 🎯";
-    private static final String MENU_SHOOT_WEST = "𝟜 ➵ Leste 🎯";
+    private static final String MENU_SHOOT_SOUTH = "𝟚 ➵ Sul 🎯";
+    private static final String MENU_SHOOT_WEST = "𝟛 ➵ Oeste 🎯";
+    private static final String MENU_SHOOT_EAST = "𝟜 ➵ Leste 🎯";
     private static final String ASKPLAYERNAME = "Qual seu nome?";
     private static final String INVALID_OPTION = "❌ Opção inválida. Tente novamente. ❌";
     private static final String ONLY_NUMBERS_ALLOWED = "Somente números são permitidos!";
@@ -48,9 +48,9 @@ public class Output {
     	System.out.println(DIVIDER);
         System.out.println(MENU_SHOOT_ARROW);
         System.out.println(MENU_SHOOT_NORTH);
-        System.out.println(MENU_SHOOT_WEST);
-        System.out.println(MENU_SHOOT_EAST);
         System.out.println(MENU_SHOOT_SOUTH);
+        System.out.println(MENU_SHOOT_EAST);
+        System.out.println(MENU_SHOOT_WEST);
     	System.out.println(DIVIDER);
     }
 
